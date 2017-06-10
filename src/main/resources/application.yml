@@ -1,0 +1,9 @@
+db:
+  username: root
+  password: root
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/online_player?characterEncoding=UTF-8
+
+server:
+  contextPath: /api/
+  port: 8080
