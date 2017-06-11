@@ -3,9 +3,12 @@ package com.online.player;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -18,9 +21,13 @@ import java.util.Properties;
 /**
  * Created by ikota on 3.6.17.
  */
+@EntityScan(
+        basePackageClasses = {Application.class, Jsr310JpaConverters.class}
+)
 @Configuration
 @ComponentScan("com.online.player")
 @EnableAutoConfiguration
+@EnableJpaAuditing
 public class Application {
 
     @Value("${db.driver}")
@@ -64,7 +71,7 @@ public class Application {
         jpaProperties.put("hibernate.dialect","org.hibernate.dialect.MySQL5Dialect");
         jpaProperties.put("hibernate.show_sql",true);
         jpaProperties.put("hibernate.format_sql","false");
-        jpaProperties.put("hibernate.hbm2ddl.auto","update");
+        jpaProperties.put("hibernate.hbm2ddl.auto","validate");
 
         em.setJpaProperties(jpaProperties);
         return em;

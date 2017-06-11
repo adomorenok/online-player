@@ -1,4 +1,4 @@
-package com.online.player.service;
+package com.online.player.service.user;
 
 import com.online.player.dto.user.CreateUserRequest;
 import com.online.player.dto.user.UpdateUserRequest;
@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
  */
 public interface UserService {
 
-    Page<UserResponse> getAll(int page, int size, String email);
+    Page<UserResponse> getAll(int page, int size);
 
     UserResponse getById(Long id);
 
@@ -19,4 +19,5 @@ public interface UserService {
     UserResponse update(Long id, UpdateUserRequest request);
 
     void delete(Long id);
+
 }
