@@ -1,0 +1,23 @@
+@import "../../../node_modules/ui-lite/src/scss/variables";
+
+@import "../../../node_modules/ui-lite/src/scss/components/main";
+@import "../../../node_modules/ui-lite/src/scss/components/header";
+@import "../../../node_modules/ui-lite/src/scss/components/footer";
+@import "../../../node_modules/ui-lite/src/scss/components/input";
+@import "../../../node_modules/ui-lite/src/scss/components/radio";
+@import "../../../node_modules/ui-lite/src/scss/components/button";
+@import "../../../node_modules/ui-lite/src/scss/components/select";
+@import "../../../node_modules/ui-lite/src/scss/components/sidebar";
+@import "../../../node_modules/ui-lite/src/scss/components/submenu";
+@import "../../../node_modules/ui-lite/src/scss/components/container";
+
+.start-button-container {
+  text-align: center;
+  padding-top: 20%;
+
+  a.ui-btn.start-button {
+    width: 200px;
+    font-size: 40px;
+    line-height: 74px;
+  }
+}
