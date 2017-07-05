@@ -5,9 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var config = {
     context: __dirname + '/online-player-ui/src',
     entry: {
-        index: './js/index',
-        trackList: './js/music/track-list',
-        addTrack: './js/music/add-track'
+        index: './js/index'
     },
 
     output: {
@@ -18,10 +16,6 @@ var config = {
 
     devtool: '#cheap-module-source-map',
 
-    externals: {
-        "jquery.js": "jquery"
-    },
-
     resolve: {
         alias: {
             'ui-lite': 'ui-lite/dist/js/ui-lite.js'
@@ -31,12 +25,11 @@ var config = {
     module: {
         loaders: [
             {
-                test: /\.js?$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
-
                 query: {
-                    presets: ['es2015']
+                    presets: ['es2015', 'stage-2', 'react']
                 }
             },
             {
@@ -52,7 +45,7 @@ var config = {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract({
                     fallback: './scss/app.scss',
-                    use: ['css-loader', 'resolve-url', 'sass-loader?sourceMap']
+                    use: ['style-loader', 'css-loader!resolve-url!sass-loader?sourceMap']
                 })
             }
         ],
@@ -64,6 +57,13 @@ var config = {
                     loader: ['css-loader', 'sass-loader'],
                     publicPath: '/online-player-ui/dist/css'
                 })
+            },
+            {
+                test: /\.(js|jsx)$/,
+                use:  [
+                    { loader: 'babel-loader', options: { presets: ['es2015', 'react', 'stage-2'] } }
+                ],
+                exclude: /node_modules/,
             }
         ]
     },

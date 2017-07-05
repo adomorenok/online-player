@@ -20,7 +20,7 @@ public class TrackResource {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public Page<TrackResponse> getAll(@RequestParam(value = "page", defaultValue = "0") int page,
-                                      @RequestParam(value = "size", defaultValue = "10") int size) {
+                                      @RequestParam(value = "size", defaultValue = "50") int size) {
         return service.getAll(page, size);
     }
 
