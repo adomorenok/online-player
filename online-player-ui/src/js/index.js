@@ -1,15 +1,30 @@
-import $ from "jquery";
-import uiLite from "ui-lite";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
-import css from '../scss/app.scss'
-/*
+import App from './app.jsx';
+import Home from './home/home.jsx';
+import TrackList from './music/track-list.jsx';
+import AddTrack from './music/add-track.jsx';
+import reducer from './music/reducers';
 
-let message = 'Hello ES6';
+import css from '../scss/app.scss';
 
-$('#qwe').on('click', (e) => {
-    alert(message);
-    console.log(new Date());
-});
-*/
 
-ui.init();
+const store = createStore(reducer, applyMiddleware(thunk));
+
+ReactDOM.render((
+    <Provider store={store}>
+        <Router history={hashHistory}>
+            <Route path="/" component={App}>
+                <IndexRoute component={Home}/>
+                <Route path="home" component={Home}/>
+                <Route path="track-list" component={TrackList}/>
+                <Route path="add-track" component={AddTrack}/>
+            </Route>
+        </Router>
+    </Provider>
+), document.getElementById('app'));
