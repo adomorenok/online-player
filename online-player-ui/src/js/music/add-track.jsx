@@ -84,7 +84,6 @@ class AddTrack extends React.Component {
                         <MdlButton className="ui-btn">Add track</MdlButton>
                     </div>
                 </form>
-
             </div>
         )
     }
