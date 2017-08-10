@@ -7,6 +7,7 @@ import com.online.player.repository.track.album.AlbumRepository;
 import com.online.player.service.track.album.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  * Created by ikota on 11.6.17.
  */
 @Service
+@Transactional
 public class AlbumServiceImpl implements AlbumService {
 
     @Autowired

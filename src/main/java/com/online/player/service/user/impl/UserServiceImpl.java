@@ -8,11 +8,11 @@ import com.online.player.exception.EntityNotFoundException;
 import com.online.player.model.user.User;
 import com.online.player.repository.user.UserRepository;
 import com.online.player.service.user.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
         return new UserResponse(userRepository.save(new User()
                 .setName(request.getName())
                 .setEmail(request.getEmail())
-                .setPassword(request.getPassword())
+                .setPassword(new BCryptPasswordEncoder().encode(request.getPassword()))
                 .setRole(UserRole.USER)));
     }
 

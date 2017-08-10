@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -28,6 +29,7 @@ import java.util.Properties;
 @ComponentScan("com.online.player")
 @EnableAutoConfiguration
 @EnableJpaAuditing
+@EnableAspectJAutoProxy(proxyTargetClass=true)
 public class Application {
 
     @Value("${db.driver}")
@@ -71,7 +73,7 @@ public class Application {
         jpaProperties.put("hibernate.dialect","org.hibernate.dialect.MySQL5Dialect");
         jpaProperties.put("hibernate.show_sql",true);
         jpaProperties.put("hibernate.format_sql","false");
-        jpaProperties.put("hibernate.hbm2ddl.auto","validate");
+        jpaProperties.put("hibernate.hbm2ddl.auto","update");
 
         em.setJpaProperties(jpaProperties);
         return em;

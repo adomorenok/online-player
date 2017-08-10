@@ -5,5 +5,5 @@ db:
   url: jdbc:mysql://localhost:3306/online_player?characterEncoding=UTF-8
 
 server:
-  contextPath: /api/
+  servlet-path: /api/
   port: 8080

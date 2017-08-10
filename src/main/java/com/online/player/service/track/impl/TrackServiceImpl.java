@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
  * Created by ikota on 11.6.17.
  */
 @Service
+@Transactional
 public class TrackServiceImpl implements TrackService {
 
     @Autowired
