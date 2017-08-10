@@ -1,6 +1,5 @@
 package com.online.player;
 
-import com.online.player.repository.user.UserRepository;
 import com.online.player.security.JsonUsernamePasswordAuthenticationFilter;
 import com.online.player.security.UnauthorizedAuthenticationFailureHandler;
 import com.online.player.security.UnauthorizedEntryPoint;
@@ -15,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -97,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers(HttpMethod.POST, "/users");
+                .antMatchers(HttpMethod.POST, "/api/users");
     }
 
     @Override

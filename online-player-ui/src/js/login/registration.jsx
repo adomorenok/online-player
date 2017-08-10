@@ -4,15 +4,16 @@ import { withRouter } from 'react-router';
 
 import MdlInput from '../components/input.jsx';
 import MdlButton from '../components/button.jsx';
-import { addTrack } from './actions/add-track';
+import { registration } from './actions/registration';
 
-class AddTrack extends React.Component {
+
+class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            authorName: '',
-            albumName: '',
-            name: ''
+            name: '',
+            email: '',
+            password: ''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,18 +23,14 @@ class AddTrack extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        let track = {
+        let user = {
             name: this.state.name,
-            album: {
-                name: this.state.albumName
-            },
-            author: {
-                name: this.state.authorName,
-                tags: []
-            }
+            email: this.state.email,
+            password: this.state.password
         };
-        this.props.onAddTrack(track, () => {
-            this.props.router.push('/track-list');
+
+        this.props.onRegistration(user, () => {
+            this.props.router.push('/login');
         });
     }
 
@@ -49,28 +46,10 @@ class AddTrack extends React.Component {
         return (
             <div>
                 <form className="add-track-form" onSubmit={this.handleSubmit}>
-                    <h1>Add track</h1>
+                    <h1>Login</h1>
 
                     <div className="ui-input-container">
-                        <label className="ui-label">Author</label>
-                        <MdlInput className="ui-input"
-                                  type="text"
-                                  name="authorName"
-                                  value={this.state.authorName}
-                                  onChange={this.handleInputChange}/>
-                    </div>
-
-                    <div className="ui-input-container">
-                        <label className="ui-label">Album</label>
-                        <MdlInput className="ui-input"
-                                  type="text"
-                                  name="albumName"
-                                  value={this.state.albumName}
-                                  onChange={this.handleInputChange}/>
-                    </div>
-
-                    <div className="ui-input-container">
-                        <label className="ui-label">Track</label>
+                        <label className="ui-label">Name</label>
                         <MdlInput className="ui-input"
                                   type="text"
                                   name="name"
@@ -78,8 +57,26 @@ class AddTrack extends React.Component {
                                   onChange={this.handleInputChange}/>
                     </div>
 
+                    <div className="ui-input-container">
+                        <label className="ui-label">Email</label>
+                        <MdlInput className="ui-input"
+                                  type="text"
+                                  name="email"
+                                  value={this.state.email}
+                                  onChange={this.handleInputChange}/>
+                    </div>
+
+                    <div className="ui-input-container">
+                        <label className="ui-label">Password</label>
+                        <MdlInput className="ui-input"
+                                  type="password"
+                                  name="password"
+                                  value={this.state.password}
+                                  onChange={this.handleInputChange}/>
+                    </div>
+
                     <div className="ui-input-container right">
-                        <MdlButton className="ui-btn">Add track</MdlButton>
+                        <MdlButton className="ui-btn">Registration</MdlButton>
                     </div>
                 </form>
             </div>
@@ -88,8 +85,8 @@ class AddTrack extends React.Component {
 }
 
 export default connect(state => ({}), dispatch => ({
-        onAddTrack: (track, callback) => {
-            dispatch(addTrack(track, callback));
+        onRegistration: (user, callback) => {
+            dispatch(registration(user, callback));
         }
     })
-)(AddTrack);
+)(Registration);

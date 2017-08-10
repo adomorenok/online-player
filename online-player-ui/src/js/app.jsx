@@ -1,7 +1,69 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default class App extends React.Component {
+import { getProfile } from './profile/actions/get-profile';
+import { logout } from './login/actions/logout';
+
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.onLoadProfile();
+    }
+
+    handleLogout(event) {
+        event.preventDefault();
+
+        this.props.onLogout(() => {
+            this.props.onLoadProfile();
+            this.props.router.push('/home');
+        });
+    }
+
     render() {
+        let menuItems;
+        if (this.props.profile.name) {
+            menuItems = <div className="ui-panel-fieldset ui-panel-active">
+                <div className="ui-panel-element-container">
+                    <a href="/#/home" className="ui-header-btn">
+                        <span>Home</span>
+                    </a>
+                </div>
+                <div className="ui-panel-element-container">
+                    <a href="/#/track-list" className="ui-header-btn">
+                        <span>Track list</span>
+                    </a>
+                </div>
+                <div className="ui-panel-element-container">
+                    <a href="/#/add-track" className="ui-header-btn">
+                        <span>Add track</span>
+                    </a>
+                </div>
+                <div className="ui-panel-element-container">
+                    <a href="/" className="ui-header-btn" onClick={this.handleLogout}>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        } else {
+            menuItems = <div className="ui-panel-fieldset ui-panel-active">
+                <div className="ui-panel-element-container">
+                    <a href="/#/login" className="ui-header-btn">
+                        <span>Login</span>
+                    </a>
+                </div>
+                <div className="ui-panel-element-container">
+                    <a href="/#/registration" className="ui-header-btn">
+                        <span>Registration</span>
+                    </a>
+                </div>
+            </div>
+        }
         return (
             <div>
                 <header className="ui-header">
@@ -15,23 +77,8 @@ export default class App extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="ui-panel-fieldset ui-panel-active">
-                            <div className="ui-panel-element-container">
-                                <a href="/#/home" className="ui-header-btn">
-                                    <span>Home</span>
-                                </a>
-                            </div>
-                            <div className="ui-panel-element-container">
-                                <a href="/#/track-list" className="ui-header-btn">
-                                    <span>Track list</span>
-                                </a>
-                            </div>
-                            <div className="ui-panel-element-container">
-                                <a href="/#/add-track" className="ui-header-btn">
-                                    <span>Add track</span>
-                                </a>
-                            </div>
-                        </div>
+
+                        {menuItems}
                     </div>
 
                     <div className="ui-header-general">
@@ -67,3 +114,16 @@ export default class App extends React.Component {
         )
     }
 }
+
+
+export default connect(state => ({
+        profile: state.profile
+    }), dispatch => ({
+        onLoadProfile: () => {
+            dispatch(getProfile());
+        },
+        onLogout: (callback) => {
+            dispatch(logout(callback));
+        }
+    })
+)(App);
